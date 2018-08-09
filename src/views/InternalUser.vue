@@ -34,7 +34,7 @@
 				</div>
 			</van-popup>
 			<div v-show="noneuser" class="none-userlist">
-				<img src="../gzf-icon/error.png"><br><br>
+        <Img :name="error" /><br><br>
 				<span>~没有找到您想要的信息~</span>
 			</div>
 			<div v-show="userlist" class="userlist">
@@ -49,7 +49,7 @@
 				:key="item.value"
 				>
 				<van-col span="8">
-					<img src="../gzf-icon/default-profile.png">
+					{{ item.userprofile }}
 				</van-col>
 				<van-col span="12">
 					<div class="name">
@@ -63,7 +63,7 @@
 					</div>
 				</van-col>
 				<van-col span="4">
-					<img src="../gzf-icon/more_if.png" @click="onClickmore">
+					<icon :name="more" @click="onClickmore"/>
 				</van-col>
 			</van-row>
 		</van-list>
@@ -78,7 +78,7 @@
 </div>
 </div>
 <div class="add">
-	<img src="../gzf-icon/add.png" @click="onClickImg">
+	<Img :name="add" @click="onClickImg"/>
 </div>
 <div class="footer">
 	<Footer></Footer>
@@ -120,7 +120,10 @@ export default {
       noneuser: false,
       userlist: true,
       Searchusername: '',
-      Searchuserphone: ''
+      Searchuserphone: '',
+      error: 'icon-weep',
+      more: 'icon-more',
+      add: 'icon-add'
     };
   },
   components: {
@@ -204,6 +207,8 @@ export default {
           }
         }).catch(function (error) {
           console.log(error);
+          this.noneuser = true;
+          this.userlist = false;
           Dialog.alert({
             message: '网络错误'
           }).then(() => {

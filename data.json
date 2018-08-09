@@ -1,19 +1,19 @@
 {
 	"userinfo": [
 		{
-			"profile": "../gzf-icon/default-profile.png",
+			"userprofile": "../gzf-icon/default-profile.png",
 			"username": "lily",
 			"userphone": "13782420425",
 			"job": "湛河区土建局-操作员"
 		},
 		{
-			"profile": "../gzf-icon/default-profile.png",
+			"userprofile": "../gzf-icon/default-profile.png",
 			"username": "李明",
 			"userphone": "13782420785",
 			"job": "新华区区土建局-操作员"
 		},
 		{
-			"profile": "../gzf-icon/default-profile.png",
+			"userprofile": "../gzf-icon/default-profile.png",
 			"username": "张三",
 			"userphone": "13782420785",
 			"job": "卫东区区土建局-操作员"

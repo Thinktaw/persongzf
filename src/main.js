@@ -4,9 +4,13 @@ import Vue from 'vue';
 import App from './App';
 import { router } from './router';
 import VueResource from 'vue-resource';
+import icon from '@/components/Icon.vue';
+import Img from '@/components/Img.vue';
 
 Vue.config.productionTip = false;
 Vue.use(VueResource);
+Vue.component('icon', icon);
+Vue.component('Img', Img);
 
 /* eslint-disable no-new */
 new Vue({
