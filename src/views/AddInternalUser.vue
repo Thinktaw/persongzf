@@ -101,7 +101,7 @@ export default {
       let usersex = this.$refs.inputusersex.value;
       var formData = JSON.stringify(this.userinfo);
       let reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
-      let reg1 = /^[\u4E00-\u9FA5]{1,4}$/;
+      let reg1 = /^[\u4E00-\u9FA5]{1,6}$/;
       // 判断用户是否填写表单
       if (username === '' || userphone === '' || usersex === '') {
         Dialog.alert({

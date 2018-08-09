@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AddInternalUser from './views/AddInternalUser.vue';
 import InternalUser from './views/InternalUser.vue';
-import ModifyName from './views/ModifyName.vue';
+import ModifyPassword from './views/ModifyPassword.vue';
 import ModifyUserphone from './views/ModifyUserphone.vue';
 Vue.use(VueRouter);
 
@@ -22,8 +22,8 @@ const routes = [
     }
   },
   {
-    path: '/ModifyName',
-    component: ModifyName,
+    path: '/ModifyPassword',
+    component: ModifyPassword,
     meta: {
       title: '修改密码'
     }
