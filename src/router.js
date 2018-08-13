@@ -4,6 +4,7 @@ import AddInternalUser from './views/AddInternalUser.vue';
 import InternalUser from './views/InternalUser.vue';
 import ModifyPassword from './views/ModifyPassword.vue';
 import ModifyUserphone from './views/ModifyUserphone.vue';
+import ValidateUserphone from './views/ValidateUserphone.vue';
 Vue.use(VueRouter);
 
 const routes = [
@@ -31,6 +32,13 @@ const routes = [
   {
     path: '/ModifyUserphone',
     component: ModifyUserphone,
+    meta: {
+      title: '更换手机号'
+    }
+  },
+  {
+    path: '/ValidateUserphone',
+    component: ValidateUserphone,
     meta: {
       title: '更换手机号'
     }

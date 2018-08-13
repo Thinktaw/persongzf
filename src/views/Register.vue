@@ -61,13 +61,13 @@ export default {
       var formData = JSON.stringify(this.accountInfo);
       alert(formData);
       var url = this.baseUrl;
-      //把数据传到服务器后台
+      // 把数据传到服务器后台
       axios
         .post(url + "/Account/Resiter", { formData: formData })
         .then(response => {
           console.log(response);
           this.oftenGoods = response.data;
-          //注册成功 跳转到主页
+          // 注册成功 跳转到主页
           this.$router.push({ path: '/' })
         })
         .catch(error => {

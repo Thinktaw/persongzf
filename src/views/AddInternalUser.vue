@@ -30,6 +30,7 @@
 					v-model="userinfo.uphone"
 					clearable
 					label="电话"
+          maxlength="11"
 					placeholder="请输入您的电话"
 					ref="inputphone"
 					required

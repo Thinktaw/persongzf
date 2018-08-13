@@ -34,7 +34,7 @@
 				</div>
 			</van-popup>
 			<div v-show="noneuser" class="none-userlist">
-        <Img :name="error" /><br><br>
+        <icon :size="'48px'" :name="error" /><br><br>
 				<span>~没有找到您想要的信息~</span>
 			</div>
 			<div v-show="userlist" class="userlist">
@@ -78,7 +78,7 @@
 </div>
 </div>
 <div class="add">
-	<Img :name="add" @click="onClickImg"/>
+	<icon :size="'48px'" :color="'#0080FF'" :name="add" @click="onClickImg"/>
 </div>
 <div class="footer">
 	<Footer></Footer>
@@ -195,26 +195,26 @@ export default {
     },
     onLoad () { // 列表加载事件
       setTimeout(() => {
-        axios.get('/api/userinfo').then((response) => {
-          let lens = response.data.data.length;
-          console.log(response.data);
-          for (let i = 0; i < lens; i++) {
-            this.list.push(response.data.data[i]);
-          }
-          this.loading = false;
-          if (this.list.length >= lens) {
-            this.finished = true;
-          }
-        }).catch(function (error) {
-          console.log(error);
-          this.noneuser = true;
-          this.userlist = false;
-          Dialog.alert({
-            message: '网络错误'
-          }).then(() => {
-            // on close
-          });
-        });
+        // axios.get('/api/userinfo').then((response) => {
+        //   let lens = response.data.data.length;
+        //   console.log(response.data);
+        //   for (let i = 0; i < lens; i++) {
+        //     this.list.push(response.data.data[i]);
+        //   }
+        //   this.loading = false;
+        //   if (this.list.length >= lens) {
+        //     this.finished = true;
+        //   }
+        // }).catch(function (error) {
+        //   console.log(error);
+        //   this.noneuser = true;
+        //   this.userlist = false;
+        //   Dialog.alert({
+        //     message: '网络错误'
+        //   }).then(() => {
+        //     // on close
+        //   });
+        // });
       }, 700);
     }
   }

@@ -6,12 +6,10 @@ import { router } from './router';
 import VueResource from 'vue-resource';
 import icon from '@/components/Icon.vue';
 import VeeValidate from 'vee-validate';
-import Img from '@/components/Img.vue';
 
 Vue.config.productionTip = false;
 Vue.use(VueResource);
 Vue.component('icon', icon);
-Vue.component('Img', Img);
 Vue.use(VeeValidate);
 
 /* eslint-disable no-new */
