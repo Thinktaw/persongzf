@@ -5,7 +5,7 @@
 ## Build Setup
 
 ``` bash
-#测试版本更新于2018-08-10
+#测试版本更新于2018-08-13
 
 # install dependencies
 npm install
