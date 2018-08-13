@@ -195,26 +195,26 @@ export default {
     },
     onLoad () { // 列表加载事件
       setTimeout(() => {
-        // axios.get('/api/userinfo').then((response) => {
-        //   let lens = response.data.data.length;
-        //   console.log(response.data);
-        //   for (let i = 0; i < lens; i++) {
-        //     this.list.push(response.data.data[i]);
-        //   }
-        //   this.loading = false;
-        //   if (this.list.length >= lens) {
-        //     this.finished = true;
-        //   }
-        // }).catch(function (error) {
-        //   console.log(error);
-        //   this.noneuser = true;
-        //   this.userlist = false;
-        //   Dialog.alert({
-        //     message: '网络错误'
-        //   }).then(() => {
-        //     // on close
-        //   });
-        // });
+        axios.get('/api/userinfo').then((response) => {
+          let lens = response.data.data.length;
+          console.log(response.data);
+          for (let i = 0; i < lens; i++) {
+            this.list.push(response.data.data[i]);
+          }
+          this.loading = false;
+          if (this.list.length >= lens) {
+            this.finished = true;
+          }
+        }).catch(function (error) {
+          console.log(error);
+          this.noneuser = true;
+          this.userlist = false;
+          Dialog.alert({
+            message: '网络错误'
+          }).then(() => {
+            // on close
+          });
+        });
       }, 700);
     }
   }

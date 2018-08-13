@@ -5,6 +5,7 @@ import InternalUser from './views/InternalUser.vue';
 import ModifyPassword from './views/ModifyPassword.vue';
 import ModifyUserphone from './views/ModifyUserphone.vue';
 import ValidateUserphone from './views/ValidateUserphone.vue';
+import RetrievePassword from './views/RetrievePassword.vue';
 Vue.use(VueRouter);
 
 const routes = [
@@ -41,6 +42,13 @@ const routes = [
     component: ValidateUserphone,
     meta: {
       title: '更换手机号'
+    }
+  },
+  {
+    path: '/RetrievePassword',
+    component: RetrievePassword,
+    meta: {
+      title: '找回密码'
     }
   }
 ];
