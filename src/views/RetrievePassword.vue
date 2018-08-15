@@ -46,10 +46,10 @@ export default {
       this.$router.go(-1);
     },
     onClickUsephone () {
-      this.$router.push();
+      this.$router.push({ path: '/RePasswordByphone' });
     },
     onClickUseemail () {
-      this.$router.push();
+      this.$router.push({ path: '/RePasswordByemail' });
     }
   }
 };

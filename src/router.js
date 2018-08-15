@@ -6,6 +6,8 @@ import ModifyPassword from './views/ModifyPassword.vue';
 import ModifyUserphone from './views/ModifyUserphone.vue';
 import ValidateUserphone from './views/ValidateUserphone.vue';
 import RetrievePassword from './views/RetrievePassword.vue';
+import RePasswordByphone from './views/RePasswordByphone.vue';
+import RePasswordByemail from './views/RePasswordByemail.vue';
 Vue.use(VueRouter);
 
 const routes = [
@@ -49,6 +51,20 @@ const routes = [
     component: RetrievePassword,
     meta: {
       title: '找回密码'
+    }
+  },
+  {
+    path: '/RePasswordByphone',
+    component: RePasswordByphone,
+    meta: {
+      title: '短信验证码找回'
+    }
+  },
+  {
+    path: '/RePasswordByemail',
+    component: RePasswordByemail,
+    meta: {
+      title: '邮箱找回'
     }
   }
 ];
