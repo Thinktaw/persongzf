@@ -76,7 +76,7 @@ export default {
     onClickLeft () { // 返回上一级
       this.$router.go(-1);
     },
-    onClicknext () {
+    onClicknext () { // 发送邮件，如果用户邮箱确实存在用户表中,并构造URL发送到用户邮箱中
       let email = this.email;
       let preg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/; // 匹配Email
       if (email === '' || !preg.test(email)) {
@@ -100,7 +100,7 @@ export default {
           });
       }
     },
-    onClicksubmit () {
+    onClicksubmit () { // 重置新密码
       let password = this.password;
       let email = this.email;
       axios

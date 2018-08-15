@@ -139,7 +139,7 @@ export default {
           this.errmsg2 = '验证码不正确';
         });
     },
-    onClicksubmit () {
+    onClicksubmit () { // 重置新密码
       let password = this.password;
       let phone = this.phone;
       axios
