@@ -146,4 +146,7 @@ export default {
 	width: 90%;
 	font-size: 15px;
 }
+.van-dialog__footer {
+  text-align: center;
+}
 </style>

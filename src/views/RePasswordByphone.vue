@@ -114,16 +114,20 @@ export default {
     },
     onClickVerif () { // 获取验证码
       let phone = this.phone;
-      console.log(phone);
-      axios
-        .get('', { phone: phone })
-        .then((response) => {
-          Toast('验证码已发送');
-        })
-        .catch(function (error) {
-          console.log(error);
-          Toast('验证码发送失败,请重试');
-        });
+      if (phone === '') {
+        this.errmsg1 = '手机号不能为空';
+      } else {
+        this.errmsg1 = '';
+        axios
+          .get('', { phone: phone })
+          .then((response) => {
+            Toast('验证码已发送');
+          })
+          .catch(function (error) {
+            console.log(error);
+            Toast('验证码发送失败,请重试');
+          });
+      }
     },
     onClicknext () { // 校验验证码,成功进行下一步,错误请重新输入
       let sms = this.sms;

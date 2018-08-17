@@ -88,21 +88,17 @@ export default {
         });
     },
     GetOldUserphone () { // 获取原手机号信息
-      // axios
-      //   .get('')
-      //   .then((response) => {
-      //     let oldphone = response.data.data.phone;
-      //     let lockoldphone = oldphone.substr(0, 3) + '******' + oldphone.substr(9);
-      //     this.oldphone = lockphone;
-      //     this.lockoldphone = lockphone;
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
-      let oldphone = '18437963657';
-      let lockoldphone = oldphone.substr(0, 3) + '******' + oldphone.substr(9);
-      this.oldphone = oldphone;
-      this.lockoldphone = lockoldphone;
+      axios
+        .get('')
+        .then((response) => {
+          let oldphone = response.data.data.phone;
+          let lockoldphone = oldphone.substr(0, 3) + '******' + oldphone.substr(9);
+          this.oldphone = oldphone;
+          this.lockoldphone = lockoldphone;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     onClicksubmit () { // 验证用户输入的验证码
       let vCode = this.$refs.inputVcode.value;

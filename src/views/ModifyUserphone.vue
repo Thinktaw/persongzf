@@ -61,16 +61,21 @@ export default {
     onClickLeft () { // 返回上一层
       this.$router.go(-1);
     },
-    onblur () { // 验证新手机号是否被占用
+    onblur () { // 验证新手机号格式是否正确,号码是否被占用
       let newphone = this.$refs.inputNewphone.value;
+      let reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
       console.log(newphone);
       if (newphone === '') {
         this.errormessage1 = '手机号不能为空';
+        this.visiable1 = true;
+      } else if (!reg.test(newphone)) {
+        this.errormessage1 = '手机号格式不正确';
         this.visiable1 = true;
       } else {
         axios
           .get('', { newphone: newphone })
           .then((response) => {
+            this.visiable1 = false;
             Toast('此手机号可以使用');
           })
           .catch((error) => {
@@ -82,21 +87,26 @@ export default {
     },
     onClickNewVerif () { // 获取新手机号验证码
       let newphone = this.$refs.inputNewphone.value;
-      axios
-        .get('', { newphone: newphone })
-        .then((response) => {
-          Toast('验证码已发送');
-        })
-        .catch(function (error) {
-          console.log(error);
-          Toast('验证码发送失败,请重试');
-        });
+      if (newphone === '') {
+        Toast('请输入您的手机号');
+      } else {
+        axios
+          .get('', { newphone: newphone })
+          .then((response) => {
+            Toast('验证码已发送');
+          })
+          .catch(function (error) {
+            console.log(error);
+            Toast('验证码发送失败,请重试');
+          });
+      }
     },
     onClicksubmit () { // 校验验证码
       let vCode = this.$refs.inputVcode.value;
-      if (vCode === '') {
+      let newphone = this.$refs.inputNewphone.value;
+      if (vCode === '' || newphone === '') {
         Dialog.alert({
-          message: '验证码不能为空'
+          message: '请先将表格填写完整'
         }).then(() => {
           // on close
         });
