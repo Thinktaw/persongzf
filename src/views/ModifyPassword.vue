@@ -149,4 +149,7 @@ export default {
 .van-dialog__footer {
   text-align: center;
 }
+.van-dialog__confirm {
+  width: 100%;
+}
 </style>
