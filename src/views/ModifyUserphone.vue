@@ -119,7 +119,11 @@ export default {
           })
           .catch(function (error) {
             console.log(error);
-            Toast('请输入正确的验证码');
+            Dialog.alert({
+              message: '验证码错误!'
+            }).then(() => {
+              // on close
+            });
           });
       }
     }
