@@ -26,7 +26,10 @@
               placeholder="请输入短信验证码"
               ref="inputVcode"
               >
-              <van-button slot="button" size="small" type="primary" @click="onClickOldVerif">发送验证码</van-button>
+              <van-button :disabled="ButtonShow" slot="button" size="small" type="primary" @click="onClickOldVerif">
+                <span v-show="VerifShow">发送验证码</span>
+                <span v-show="!VerifShow">{{count}}s后再次获取</span>
+              </van-button>
             </van-field>
           </van-cell-group>
           <van-button class="content-button" size="normal" type="primary" @click="onClicksubmit">下一步</van-button>
@@ -47,15 +50,20 @@ import {
 }
   from 'vant';
 import axios from 'axios';
+const TIME_COUNT = 60;
 export default {
   data () {
     return {
       sms: '',
+      count: '',
+      timer: null,
       oldphone: '',
       newphone: '',
       inputVcode: '',
       show: true,
-      lockoldphone: ''
+      lockoldphone: '',
+      VerifShow: true,
+      ButtonShow: false
     };
   },
   mounted: function () {
@@ -80,6 +88,19 @@ export default {
       axios
         .get('', { oldphone: oldphone })
         .then((response) => {
+          this.count = TIME_COUNT;
+          this.VerifShow = false;
+          this.ButtonShow = true;
+          this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+              this.count--;
+            } else {
+              this.VerifShow = true;
+              this.ButtonShow = false;
+              clearInterval(this.timer);
+              this.timer = null;
+            }
+          }, 1000);
           Toast('验证码已发送');
         })
         .catch(function (error) {
