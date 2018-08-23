@@ -8,6 +8,7 @@ import ValidateUserphone from './views/ValidateUserphone.vue';
 import RetrievePassword from './views/RetrievePassword.vue';
 import RePasswordByphone from './views/RePasswordByphone.vue';
 import RePasswordByemail from './views/RePasswordByemail.vue';
+import AddProperty from './views/AddProperty.vue';
 Vue.use(VueRouter);
 
 const routes = [
@@ -65,6 +66,13 @@ const routes = [
     component: RePasswordByemail,
     meta: {
       title: '邮箱找回'
+    }
+  },
+  {
+    path: '/AddProperty',
+    component: AddProperty,
+    meta: {
+      title: '新建物业'
     }
   }
 ];
