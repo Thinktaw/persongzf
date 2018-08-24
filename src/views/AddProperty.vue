@@ -63,6 +63,7 @@
         label="联系电话"
         placeholder="请输入联系电话"
         ref="inputPhone"
+        :error-message="errmsg1"
         />
       </van-cell-group>
     </div>
@@ -81,6 +82,7 @@ import {
   Dialog
 }
   from 'vant';
+import axios from 'axios';
 export default {
   data () {
     return {
@@ -95,7 +97,8 @@ export default {
         Leadername: '',
         Propertyname: '',
         Phone: ''
-      }
+      },
+      errmsg1: ''
     };
   },
   components: {
@@ -118,6 +121,7 @@ export default {
       let name = this.addProperty.Leadername;
       let propertyname = this.addProperty.Propertyname;
       let phone = this.addProperty.Phone;
+      let reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
       console.log(formData);
       if (Rtype === '' || name === '' || propertyname === '' || phone === '') {
         Dialog.alert({
@@ -125,8 +129,27 @@ export default {
         }).then(() => {
           // on close
         });
+      } else if (!reg.test(phone)) {
+        this.errmsg1 = '手机号格式不正确';
       } else {
-        Toast('填写完整了');
+        this.errmsg1 = '';
+        axios
+          .get('', { formData: formData })
+          .then((response) => {
+            Dialog.alert({
+              message: '保存成功!'
+            }).then(() => {
+              // on close
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+            Dialog.alert({
+              message: '保存失败,请重试!'
+            }).then(() => {
+              // on close
+            });
+          });
       }
     },
     showTypeList () { // 显示列表
