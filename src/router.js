@@ -9,6 +9,8 @@ import RetrievePassword from './views/RetrievePassword.vue';
 import RePasswordByphone from './views/RePasswordByphone.vue';
 import RePasswordByemail from './views/RePasswordByemail.vue';
 import AddProperty from './views/AddProperty.vue';
+import ComplaintAndAdvise from './views/ComplaintAndAdvise.vue';
+import ComplaintDetail from './views/ComplaintDetail';
 Vue.use(VueRouter);
 
 const routes = [
@@ -73,6 +75,20 @@ const routes = [
     component: AddProperty,
     meta: {
       title: '新建物业'
+    }
+  },
+  {
+    path: '/ComplaintAndAdvise',
+    component: ComplaintAndAdvise,
+    meta: {
+      title: '投诉建议'
+    }
+  },
+  {
+    path: '/ComplaintDetail',
+    component: ComplaintDetail,
+    meta: {
+      title: '投诉详情'
     }
   }
 ];

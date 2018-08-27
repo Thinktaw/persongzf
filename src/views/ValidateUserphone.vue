@@ -84,23 +84,23 @@ export default {
     },
     onClickOldVerif () { // 获取原手机验证码
       let oldphone = this.oldphone;
+      this.count = TIME_COUNT;
+      this.VerifShow = false;
+      this.ButtonShow = true;
+      this.timer = setInterval(() => {
+        if (this.count > 0 && this.count <= TIME_COUNT) {
+          this.count--;
+        } else {
+          this.VerifShow = true;
+          this.ButtonShow = false;
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+      }, 1000);
       console.log(oldphone);
       axios
         .get('', { oldphone: oldphone })
         .then((response) => {
-          this.count = TIME_COUNT;
-          this.VerifShow = false;
-          this.ButtonShow = true;
-          this.timer = setInterval(() => {
-            if (this.count > 0 && this.count <= TIME_COUNT) {
-              this.count--;
-            } else {
-              this.VerifShow = true;
-              this.ButtonShow = false;
-              clearInterval(this.timer);
-              this.timer = null;
-            }
-          }, 1000);
           Toast('验证码已发送');
         })
         .catch(function (error) {

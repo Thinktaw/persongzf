@@ -134,7 +134,7 @@ export default {
       } else {
         this.errmsg1 = '';
         axios
-          .get('', { formData: formData })
+          .post('', { formData: formData })
           .then((response) => {
             Dialog.alert({
               message: '保存成功!'

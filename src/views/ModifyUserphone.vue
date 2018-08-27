@@ -136,7 +136,7 @@ export default {
           .get('', { vCode: vCode })
           .then((response) => {
             Toast('手机号更换成功');
-            this.$router.push({ path: '/ValidateUserphone.vue' });
+            this.$router.push({ path: '/ValidateUserphone' });
           })
           .catch(function (error) {
             console.log(error);
