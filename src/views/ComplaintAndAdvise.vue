@@ -4,9 +4,13 @@
       <van-nav-bar
       title="投诉建议"
       left-text="返回"
+      right-text="搜索"
       left-arrow
       @click-left="onClickLeft"
-      />
+      @click-right="onClickRight"
+      >
+        <van-icon name="search" slot="right" />
+    </van-nav-bar>
     </div>
     <div class="Tab">
       <van-tabs v-model="active">
@@ -25,7 +29,7 @@
               年初提交的租房申请，现在已经过去了半年了，工作人员不给我任何回复
               年初提交的租房申请，现在已经过去了半年了，工作人员不给我任何回复
             </div>
-            <div class="status" v-show="buttonshow">
+            <div class="status" v-show="spanshow">
               <span>受理中</span>
             </div>
           </div>
@@ -61,11 +65,13 @@ import {
   Tab,
   Tabs,
   Toast,
+  Icon,
   List,
   Button
 }
   from 'vant';
 import Footer from '../components/Footer.vue';
+import axios from 'axios';
 export default {
   data () {
     return {
@@ -73,7 +79,7 @@ export default {
       loading: false,
       finished: false,
       list: [],
-      buttonshow: true
+      spanshow: false
     };
   },
   components: {
@@ -83,6 +89,7 @@ export default {
     [Tabs.name]: Tabs,
     [Toast.name]: Toast,
     [Button.name]: Button,
+    [Icon.name]: Icon,
     Footer
   },
   mounted: function () {
@@ -91,6 +98,9 @@ export default {
   methods: {
     onClickLeft () { // 返回上一层
       this.$router.go(-1);
+    },
+    onClickRight () { // 设置过滤条件
+      Toast('search');
     },
     OnClickDetail () { // 跳转到投诉详情页面
       this.$router.push({ path: './ComplaintDetail' });
@@ -106,14 +116,24 @@ export default {
         }
       }, 500);
     },
-    GetComplaintStatus () { // 获取投诉列表状态(受理中)
-
+    GetComplaintStatus () { // 加载页面时获取投诉列表状态(受理中)
+      axios
+        .post('')
+        .then((response) => {
+          this.spanshow = true;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   }
 };
 </script>
 
 <style rel="stylesheet">
+.van-icon {
+  font-size: 16px;
+}
 .van-nav-bar__text {
   font-size: 16px;
 }
@@ -137,8 +157,7 @@ export default {
   padding-bottom: 20px;
 }
 .status {
-  margin-top: 15px;
-  margin-bottom: 8px;
+  margin: 15px 5px 8px;
   position: absolute;
   bottom: 0;
   right: 0;
