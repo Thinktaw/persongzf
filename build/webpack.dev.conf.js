@@ -13,7 +13,8 @@ const portfinder = require('portfinder')
 const express = require('express')
 const app = express()//请求server
 var appData = require('../data.json')//加载本地数据文件
-var notice = appData.notice//获取对应的本地数据
+var Complaininfo = appData.Complaininfo//获取对应的本地数据
+var Adviseinfo = appData.Adviseinfo
 var userinfo = appData.userinfo
 var apiRoutes = express.Router()
 app.use('/api', apiRoutes)//通过路由请求数据
@@ -52,10 +53,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     },
     before(app) {
-      app.get('/api/notice', (req, res) => {
+      app.get('/api/Complaininfo', (req, res) => {
         res.json({
           errno: 0,
-          data: notice
+          data: Complaininfo
     })//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
       }),
       app.get('/api/userinfo', (req, res) => {
@@ -64,10 +65,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           data: userinfo
         })
       }),
-      app.get('/api/detail', (req, res) => {
+      app.get('/api/Adviseinfo', (req, res) => {
         res.json({
           errno: 0,
-          data: detail
+          data: Adviseinfo
         })
       })
     }

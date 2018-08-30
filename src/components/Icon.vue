@@ -37,7 +37,8 @@ export default {
 </script>
 
 <style scoped>
- @import url(//at.alicdn.com/t/font_783105_a9cbyqgwmc.css);
+ @import url(//at.alicdn.com/t/font_783105_ax0ywo56ghi.css
+);
 
 i.iconfont {
   font-size: 18px;

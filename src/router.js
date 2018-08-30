@@ -7,10 +7,14 @@ import ModifyUserphone from './views/ModifyUserphone.vue';
 import ValidateUserphone from './views/ValidateUserphone.vue';
 import RetrievePassword from './views/RetrievePassword.vue';
 import RePasswordByphone from './views/RePasswordByphone.vue';
-import RePasswordByemail from './views/RePasswordByemail.vue';
+import RePasswordByemailstep1 from './views/RePasswordByemailstep1.vue';
+import RePasswordByemailstep2 from './views/RePasswordByemailstep2.vue';
 import AddProperty from './views/AddProperty.vue';
 import ComplaintAndAdvise from './views/ComplaintAndAdvise.vue';
 import ComplaintDetail from './views/ComplaintDetail';
+import AdviseDetail from './views/AdviseDetail';
+import Complaint from './views/Complaint';
+import Advise from './views/Advise';
 Vue.use(VueRouter);
 
 const routes = [
@@ -64,8 +68,18 @@ const routes = [
     }
   },
   {
-    path: '/RePasswordByemail',
-    component: RePasswordByemail,
+    path: '/RePasswordByemailstep1',
+    component: RePasswordByemailstep1,
+    meta: {
+      title: '邮箱找回'
+    }
+  },
+  {
+    path: '/RePasswordByemailstep2',
+    query: {
+      username: ''
+    },
+    component: RePasswordByemailstep2,
     meta: {
       title: '邮箱找回'
     }
@@ -75,6 +89,20 @@ const routes = [
     component: AddProperty,
     meta: {
       title: '新建物业'
+    }
+  },
+  {
+    path: '/Complaint',
+    component: Complaint,
+    meta: {
+      title: '投诉'
+    }
+  },
+  {
+    path: '/Advise',
+    component: Advise,
+    meta: {
+      title: '建议'
     }
   },
   {
@@ -89,6 +117,13 @@ const routes = [
     component: ComplaintDetail,
     meta: {
       title: '投诉详情'
+    }
+  },
+  {
+    path: '/AdviseDetail',
+    component: AdviseDetail,
+    meta: {
+      title: '建议'
     }
   }
 ];

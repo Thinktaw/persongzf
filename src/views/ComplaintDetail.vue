@@ -2,18 +2,23 @@
   <div class="ComplaintDetail">
     <div class="nav">
       <van-nav-bar
-      title="投诉建议"
+      title="投诉详情"
       left-text="返回"
       left-arrow
       @click-left="onClickLeft"
-      />
+      >
+        <icon :name="more" :color="'#0080FF'" slot="right" @click="onClickRight"/>
+      </van-nav-bar>
     </div>
     <div class="content">
       <div class="content-title">
-        投诉审核速度慢
+        {{ contenttitle }}
       </div>
       <div class="content-detail">
-        我那时真是聪明过分；也怕别人看见！到这边时；他先将橘子散放在地上；我与父亲不相见已二年余了；父亲和我都是东奔西走？须穿过铁道。”他望车外看了看，两脚再向上缩！
+        {{ contentdetail }}
+      </div>
+      <div class="content-image">
+        {{ contentimage }}
       </div>
       <div class="content-reply" v-show="contentreply" v-for="reply in list" :key="reply.replycotent">
         <span class="replytitle">{{ reply.username }}</span>:
@@ -40,6 +45,20 @@
       <div class="content-replybutton" v-show="replyshow">
         <van-button class="Acceptance" type="primary" @click="onClickReply">回复</van-button>
       </div>
+      <div class="reply">
+        <van-dialog v-model="Rshow" title="回复内容" show-confirm-button
+        show-cancel-button
+        overlay
+        @confirm="onConfirm"
+        @cancel="onCancel"
+        >
+          <van-field
+            v-model="reply"
+            placeholder="请输入回复内容"
+            autosize
+          />
+        </van-dialog>
+      </div>
     </div>
   </div>
 </template>
@@ -58,6 +77,9 @@ export default {
   data () {
     return {
       show: false,
+      contenttitle: '投诉审核速度慢',
+      contentdetail: '我那时真是聪明过分；也怕别人看见！到这边时；他先将橘子散放在地上；我与父亲不相见已二年余了；父亲和我都是东奔西走？须穿过铁道。”他望车外看了看，两脚再向上缩！',
+      contentimage: '',
       list: [
         {
           username: '官方回复',
@@ -69,9 +91,12 @@ export default {
         }
       ],
       reason: '',
+      reply: '',
       buttonshow: true,
       replyshow: false,
-      contentreply: true
+      contentreply: true,
+      Rshow: false,
+      more: 'icon-more'
     };
   },
   components: {
@@ -82,12 +107,31 @@ export default {
     [Field.name]: Field
   },
   mounted: function () {
-    this.GetComplaintStatus();
+    this.GetComplaint();
     this.GetComplaintReply();
   },
   methods: {
     onClickLeft () { // 返回上一层
       this.$router.go(-1);
+    },
+    onClickRight () { // 删除投诉
+      Dialog.confirm({
+        title: '删除投诉',
+        message: '您确地要删除吗?'
+      }).then(() => {
+        axios
+          .post('')
+          .then((response) => {
+            this.$router.go(-1);
+            Toast('删除成功');
+          })
+          .catch(function (error) {
+            console.log(error);
+            Toast('删除失败');
+          });
+      }).catch(() => {
+        // on cancel
+      });
     },
     onClickAcceptance () { // 投诉受理,修改投诉状态
       axios
@@ -120,12 +164,35 @@ export default {
       }
     },
     onClickReply () { // 回复投诉
-      Toast('回复');
+      this.Rshow = true;
     },
-    GetComplaintStatus () { // 获取投诉状态
+    onConfirm () { // 回复投诉确认
+      let confirm = this.reply;
+      console.log(confirm);
       axios
-        .post('')
-        .then((response) => { // 如果状态是受理中则显示回复按钮
+        .post('', { confirm: confirm })
+        .then((response) => {
+          Toast('回复成功');
+        })
+        .catch(function (error) {
+          console.log(error);
+          Toast('回复失败!');
+        });
+    },
+    onCancel () { // 回复投诉取消
+      this.reply = '';
+      this.Rshow = false;
+    },
+    GetComplaint () { // 获取投诉信息及状态
+      let titlename = this.$route.query.titlename;
+      console.log(titlename);
+      axios
+        .post('', { titlename: titlename })
+        .then((response) => {
+          this.contenttitle = ''; // 获取投诉详情标题
+          this.contentdetail = ''; // 获取投诉详情内容
+          this.contentimage = ''; // 获取投诉详情照片
+          // 如果状态是受理中则显示回复按钮
           this.buttonshow = false;
           this.spanshow = true;
         })
@@ -165,6 +232,15 @@ export default {
   text-align: center;
 }
 .content-detail {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  text-indent: 27px;
+  text-align: justify;
+}
+.content-image {
   width: 80%;
   margin: 0 auto;
   margin-top: 25px;

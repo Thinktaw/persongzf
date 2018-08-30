@@ -18,5 +18,66 @@
 			"userphone": "13782420785",
 			"job": "卫东区区土建局-操作员"
 		}
+	],
+	"Complaininfo": [
+		{
+			"Complainid": 1,
+			"titlename": "投诉审核速度太慢",
+			"contentinfo": "年初提交的租房申请，现在已经过去了半年了，工作人员不给我任何回复年初提交的租房申请，现在已经过去了半年了，工作人员不给我任何回复年初提交的租房申请，现在已经过去了半年了，工作人员不给我任何回复",
+			"status": 1
+		},
+		{
+			"Complainid": 2,
+			"titlename": "智能潮品新势力",
+			"contentinfo": "智能潮品新势力哈弗F炫酷登场引领年轻时尚潮流哈弗翻开品牌年轻化、智能化、科技化新篇章 ​​​​",
+			"status": 0
+		},
+		{
+			"Complainid": 3,
+			"titlename": "近日美联航一架",
+			"contentinfo": "空中乘务员报告机长有名旅客有枪，机长立即紧锁驾驶舱门，宣布紧急，尽快落地后警察包围了飞机，铐走了携枪者……事后发现一场误会：那是名暗藏在旅客中的联邦空中警察",
+			"status": 1
+		}
+	],
+	"Adviseinfo": [
+		{
+			"Adviseid": 1,
+			"titlename": "建议开展社区活动",
+			"contentinfo": "建议开通水费网上缴费功能，方便人民群众。一站式解决租房所有的费用相关问题",
+			"comment": [
+			  {
+			  	"commentcontent": "您的建议我们已经收到了,感谢您的支持"
+			  },
+			  {
+			  	"commentcontent": "您的建议已被我们采纳,感谢您为社区做出的贡献"
+			  }
+		    ],
+			"commentcount": 2,
+			"like": 0
+		},
+		{
+			"Adviseid": 2,
+			"titlename": "建议设立社区规章制度",
+			"contentinfo": "建议开通水费网上缴费功能，方便人民群众。一站式解决租房所有的费用相关问题",
+			"comment": [
+			  {
+			  	"commentcontent": "您的建议我们已经收到了,感谢您的支持"
+			  }
+		    ],
+			"commentcount": 1,
+			"like": 1
+		},
+		{
+			"Adviseid": 3,
+			"titlename": "建议开通水费网上缴费",
+			"contentinfo": "建议开通水费网上缴费功能，方便人民群众。一站式解决租房所有的费用相关问题",
+			"comment": [
+			  {
+			  	"commentcontent": "您的建议我们已经收到了,感谢您的支持"
+			  }
+		    ],
+			"commentcount": 1,
+			"like": 1
+		}
 	]
 }

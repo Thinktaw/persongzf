@@ -1,63 +1,43 @@
 <template>
-  <div class="ComplaintAndAdvise">
+  <div class="Complaint">
     <div class="nav">
       <van-nav-bar
-      title="投诉建议"
+      title="投诉"
       left-text="返回"
       left-arrow
       @click-left="onClickLeft"
       />
     </div>
-    <div class="Tab">
-      <van-tabs v-model="active" @click="onClickChange">
-        <van-tab title="投诉">
-          <van-list
-          v-model="loading"
-          :finished="finished"
-          @load="onLoadComplaint"
-          >
-          <div class="ComplaintAdvise" @click="OnClickComplainDetail(complaintitem)" v-for="complaintitem in complaintlist" :key="complaintitem.value">
-            <div class="titlename">
-              {{ complaintitem.titlename }}
-            </div>
-            <div class="contentinfo">
-              {{ complaintitem.contentinfo }}
-            </div>
-            <div v-if="complaintitem.status==1" class="status">
-              受理中
-            </div>
+    <div class="content">
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        @load="onLoadComplaint"
+        >
+        <div class="ComplaintAdvise" @click="OnClickComplainDetail(complaintitem)" v-for="complaintitem in complaintlist" :key="complaintitem.value">
+          <div class="titlename">
+            {{ complaintitem.titlename }}
           </div>
-          </van-list>
-          <div class="search">
-            <icon :size="'40px'" :color="'#0080FF'" :name="search" @click="onClickSearch"/>
+          <div class="contentinfo">
+            {{ complaintitem.contentinfo }}
           </div>
-          <div class="popup">
-            <van-popup v-model="popupshow" position="bottom" :overlay="true">
-              <van-cell-group>
-                <van-cell title="待处理" @click="onClickUntreated"/>
-                <van-cell title="处理中" @click="onClickTreatting"/>
-                <van-cell title="已处理" @click="onClickClosed"/>
-              </van-cell-group>
-            </van-popup>
+          <div v-if="complaintitem.status==1" class="status">
+            受理中
           </div>
-        </van-tab>
-        <van-tab title="建议">
-          <van-list
-          v-model="loading"
-          :finished="finished"
-          @load="onLoadAdvise"
-          >
-          <div class="ComplaintAdvise" @click="OnClickAdviseDetail(adviseitem)" v-for="adviseitem in adviselist" :key="adviseitem.value">
-            <div class="titlename">
-              {{ adviseitem.titlename }}
-            </div>
-            <div class="contentinfo">
-              {{ adviseitem.contentinfo }}
-            </div>
-          </div>
-          </van-list>
-        </van-tab>
-      </van-tabs>
+        </div>
+      </van-list>
+      <div class="search">
+        <icon :size="'40px'" :color="'#0080FF'" :name="search" @click="onClickSearch"/>
+      </div>
+      <div class="popup">
+        <van-popup v-model="popupshow" position="bottom" :overlay="true">
+          <van-cell-group>
+              <van-cell title="待处理" @click="onClickUntreated"/>
+              <van-cell title="处理中" @click="onClickTreatting"/>
+              <van-cell title="已处理" @click="onClickClosed"/>
+          </van-cell-group>
+        </van-popup>
+      </div>
     </div>
     <div class="footer">
       <Footer></Footer>
@@ -85,13 +65,10 @@ export default {
   data () {
     return {
       popupshow: false,
-      active: '',
       loading: false,
       finished: false,
       complaintlist: [],
       complaintitem: [],
-      adviselist: [],
-      adviseitem: [],
       search: 'icon-search'
     };
   },
@@ -111,11 +88,6 @@ export default {
   methods: {
     onClickLeft () { // 返回上一层
       this.$router.go(-1);
-    },
-    onClickChange () { // 切换标签
-      if (this.adviselist.length === 0) {
-        this.finished = false;
-      }
     },
     onClickSearch () { // 设置过滤条件(1--待受理  2--受理中)
       this.popupshow = true;
@@ -160,7 +132,7 @@ export default {
           console.log(error);
         });
     },
-    onClickClosed () {
+    onClickClosed () { // 筛选已关闭的投诉列表
       let Tstatus = 2;
       axios
         .post('', { Tstatus: Tstatus })
@@ -207,35 +179,6 @@ export default {
           titlename: titlename
         }
       });
-    },
-    onLoadAdvise () {
-      axios
-        .get('/api/Adviseinfo')
-        .then((response) => {
-          let lens = response.data.data.length;
-          setTimeout(() => {
-            for (let i = 0; i < lens; i++) {
-              this.adviselist.push(response.data.data[i]);
-            }
-            this.loading = false;
-            if (this.adviselist.length >= lens) {
-              this.finished = true;
-            }
-          }, 500);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    OnClickAdviseDetail (adviseitem) { // 加载建议列表
-      let titlename = adviseitem.titlename;
-      console.log(titlename);
-      this.$router.push({
-        path: './AdviseDetail',
-        query: {
-          titlename: titlename
-        }
-      });
     }
   }
 };
@@ -263,7 +206,7 @@ export default {
 .van-tabs__line {
   background-color: #38f;
 }
-.Tab {
+.content {
   margin-bottom: 45px;
 }
 .search {

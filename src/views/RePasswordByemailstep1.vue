@@ -1,5 +1,5 @@
 <template>
-  <div class="RePasswordByemail">
+  <div class="RePasswordByemailstep1">
     <div class="nav">
       <van-nav-bar
       title="邮箱找回"
@@ -9,7 +9,7 @@
       />
     </div>
     <div class="content">
-      <div class="content-email" v-show="contentEmail">
+      <div class="content-email">
         <van-field
         type="email"
         required
@@ -20,21 +20,6 @@
         :error-message="errmsg1"
         />
         <van-button class="content-button" size="normal" type="primary" @click="onClicknext">下一步</van-button>
-      </div>
-      <div class="content-password" v-show="contentPassword">
-      <h2 class="van-doc-demo-block__title">请输入新密码</h2>
-        <van-cell-group>
-          <van-field
-          required
-          clearable
-          type="password"
-          v-model="password"
-          label="新密码"
-          placeholder="请输入新密码"
-          :error-message="errmsg2"
-          />
-        </van-cell-group>
-        <van-button class="content-button" size="normal" type="primary" @click="onClicksubmit">确定</van-button>
       </div>
     </div>
   </div>
@@ -56,11 +41,7 @@ export default {
   data () {
     return {
       email: '',
-      errmsg1: '',
-      contentEmail: true,
-      contentPassword: false,
-      password: '',
-      errmsg2: ''
+      errmsg1: ''
     };
   },
   components: {
@@ -84,45 +65,20 @@ export default {
       } else {
         this.errmsg1 = '';
         axios
-          .get('', { email: email })
+          .post('', { email: email })
           .then((response) => {
+            // url example 'http://10.58.1.103:8080/RePasswordByemailstep2?username='小明';
             Dialog.alert({
-              message: '系统已向您的邮箱发送了一封邮件!'
+              message: '系统已向您的邮箱发送了一封邮件,请登录您的邮箱进行查看!'
             }).then(() => {
               // on close
             });
-            this.contentEmail = false;
-            this.contentPassword = true;
           })
           .catch((error) => {
             console.log(error);
             Toast('该邮箱尚未注册!');
           });
       }
-    },
-    onClicksubmit () { // 重置新密码
-      let password = this.password;
-      let email = this.email;
-      axios
-        .get('', {
-          password: password,
-          email: email
-        })
-        .then((response) => {
-          Dialog.alert({
-            message: '新密码设置成功'
-          }).then(() => {
-            // on close
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-          Dialog.alert({
-            message: '新密码设置失败,请重试!'
-          }).then(() => {
-            // on close
-          });
-        });
     }
   }
 };

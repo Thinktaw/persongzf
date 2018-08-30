@@ -49,7 +49,7 @@ export default {
       this.$router.push({ path: '/RePasswordByphone' });
     },
     onClickUseemail () {
-      this.$router.push({ path: '/RePasswordByemail' });
+      this.$router.push({ path: '/RePasswordByemailstep1' });
     }
   }
 };
