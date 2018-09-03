@@ -15,7 +15,7 @@
         @load="onLoadAdvise"
         >
         <div class="Advise" v-for="adviseitem in adviselist" :key="adviseitem.value">
-          <div class="AdviseDetail" @click="OnClickAdviseDetail(adviseitem)">
+          <div class="AdviseDetail" >
             <div class="titlename">
               {{ adviseitem.titlename }}
             </div>
@@ -35,10 +35,24 @@
           </div>
           <div class="popup">
             <van-popup v-model="show" position="bottom" :overlay="true">
-              <van-cell-group>
-                <van-field v-model="commentvalue" type="textarea" placeholder="写回复" />
-              </van-cell-group>
-              <van-button class="sendbutton" size="small" type="default">发送</van-button>
+              <div class="sendreply">
+                <van-cell-group>
+                  <van-field v-model="commentvalue" type="textarea" placeholder="写回复" />
+                </van-cell-group>
+                <van-button class="sendbutton" size="small" type="default" @click="onClickSend(reply)">发送</van-button>
+              </div>
+              <div class="replyinfo">
+              <div class="Sharp"></div>
+                <van-list
+                  v-model="reloading"
+                  :finished="refinished"
+                >
+                    <div class="content-reply" v-for="reply in replylist" :key="reply.Adviseid">
+                      <span class="replytitle">官方回复</span>:
+                      <span>{{ reply.commentcontent }}</span>
+                    </div>
+                  </van-list>
+                </div>
             </van-popup>
           </div>
         </div>
@@ -66,9 +80,12 @@ export default {
       show: false,
       commentvalue: '',
       loading: false,
+      reloading: false,
       finished: false,
+      refinished: false,
       adviselist: [],
       adviseitem: [],
+      replylist: [],
       like: 'icon-home_ico_like-',
       unlike: 'icon-like',
       likecolor: '#d81e06',
@@ -89,7 +106,7 @@ export default {
     onClickLeft () { // 返回上一层
       this.$router.go(-1);
     },
-    onLoadAdvise () {
+    onLoadAdvise () { // 加载建议列表
       axios
         .get('/api/Adviseinfo')
         .then((response) => {
@@ -108,34 +125,59 @@ export default {
           console.log(error);
         });
     },
-    OnClickAdviseDetail (adviseitem) { // 加载建议列表
-      let titlename = adviseitem.titlename;
-      console.log(titlename);
-      this.$router.push({
-        path: './AdviseDetail',
-        query: {
-          titlename: titlename
-        }
-      });
-    },
-    onClickComment () { // 评论事件
+    onClickComment (adviseitem) { // 弹出回复内容,加载回复列表
+      let Adviseid = adviseitem.Adviseid;
+      console.log(Adviseid);
       this.show = true;
       axios
-        .get('/api/Adviseinfo')
+        .get('/api/replyinfo', { Adviseid: Adviseid })
         .then((response) => {
-          console.log(response.data.data[0].comment[0].commentcontent);
-          console.log(response.data.data[0].comment[1].commentcontent);
+          let lens = response.data.data.commentcount;
+          if (this.replylist.length === 0) {
+            setTimeout(() => {
+              for (let i = 0; i < lens; i++) {
+                this.replylist.push(response.data.data.comment[i]);
+              }
+              this.reloading = false;
+              if (this.replylist.length >= lens) {
+                this.refinished = true;
+              }
+            }, 500);
+          }
         })
         .catch(function (error) {
           console.log(error);
         });
+    },
+    onClickSend (reply) { // 评论事件(只能官方回复)
+      let Adviseid = reply.Adviseid;
+      let commentvalue = this.commentvalue;
+      console.log(Adviseid);
+      let usertype = ''; // 获取用户类型
+      if (usertype === 0) {
+        Toast('您没有权限进行回复');
+      } else {
+        axios
+          .post('', {
+            Adviseid: Adviseid,
+            commentvalue: commentvalue
+          })
+          .then((response) => {
+            Toast('回复成功');
+          })
+          .catch((error) => {
+            console.log(error);
+            this.commentvalue = '';
+            Toast('回复失败,请重试!');
+          });
+      }
     },
     onClickLike (adviseitem) { // 点赞事件
       let Adviseid = adviseitem.Adviseid;
       console.log(Adviseid);
       axios
         .post('', { id: Adviseid })
-        .then((response) => { // 改变改条建议的like状态
+        .then((response) => { // 改变该条建议的like状态
           // if (adviseitem.like === 0) {
           //   adviseitem.like = 1;
           // } else {
@@ -162,6 +204,31 @@ export default {
 .content {
   margin-bottom: 45px;
 }
+.replytitle {
+  font-size: 15px;
+  color: #0080FF;
+}
+.content-reply {
+  width: 80%;
+  text-align: justify;
+  margin-left: 15px;
+}
+.replyinfo {
+  border:1px solid #ADADAD;
+  border-radius: 5px;
+}
+.Sharp {
+  width:15px;
+  height:15px;
+  border:1px solid #ADADAD;
+  position:relative;
+  transform:rotate(45deg);
+  background-color: #F0F0F0;
+  border-bottom: none;
+  border-right: none;
+  left:145px;
+  top:-7px;
+}
 .Advise {
   position: relative;
   border-bottom: 2px solid;
@@ -180,11 +247,6 @@ export default {
   margin-left: 30px;
   font-size: 14px;
   color: #8E8E8E;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
 }
 .van-popup {
   background-color: #F0F0F0;
@@ -193,10 +255,13 @@ export default {
   width: 80%;
   margin-top: 7px;
   margin-left: 15px;
-  float: left;
+  margin-bottom: 15px;
+}
+.sendreply {
+  position: relative;
 }
 .sendbutton {
-  position: fixed;
+  position: absolute;
   right: 0px;
   bottom: 0px;
   background-color: #F0F0F0;

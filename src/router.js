@@ -12,7 +12,6 @@ import RePasswordByemailstep2 from './views/RePasswordByemailstep2.vue';
 import AddProperty from './views/AddProperty.vue';
 import ComplaintAndAdvise from './views/ComplaintAndAdvise.vue';
 import ComplaintDetail from './views/ComplaintDetail';
-import AdviseDetail from './views/AdviseDetail';
 import Complaint from './views/Complaint';
 import Advise from './views/Advise';
 Vue.use(VueRouter);
@@ -117,13 +116,6 @@ const routes = [
     component: ComplaintDetail,
     meta: {
       title: '投诉详情'
-    }
-  },
-  {
-    path: '/AdviseDetail',
-    component: AdviseDetail,
-    meta: {
-      title: '建议'
     }
   }
 ];

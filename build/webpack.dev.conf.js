@@ -15,6 +15,7 @@ const app = express()//请求server
 var appData = require('../data.json')//加载本地数据文件
 var Complaininfo = appData.Complaininfo//获取对应的本地数据
 var Adviseinfo = appData.Adviseinfo
+var replyinfo = appData.replyinfo
 var userinfo = appData.userinfo
 var apiRoutes = express.Router()
 app.use('/api', apiRoutes)//通过路由请求数据
@@ -69,6 +70,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         res.json({
           errno: 0,
           data: Adviseinfo
+        })
+      }),
+      app.get('/api/replyinfo', (req, res) => {
+        res.json({
+          errno: 0,
+          data: replyinfo
         })
       })
     }
