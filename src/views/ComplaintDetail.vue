@@ -184,10 +184,10 @@ export default {
       this.Rshow = false;
     },
     GetComplaint () { // 获取投诉信息及状态
-      let titlename = this.$route.query.titlename;
-      console.log(titlename);
+      let Complainid = this.$route.query.Complainid;
+      console.log(Complainid);
       axios
-        .post('', { titlename: titlename })
+        .post('', { Complainid: Complainid })
         .then((response) => {
           this.contenttitle = ''; // 获取投诉详情标题
           this.contentdetail = ''; // 获取投诉详情内容

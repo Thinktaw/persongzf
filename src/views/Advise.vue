@@ -4,6 +4,8 @@
       <van-nav-bar
       title="建议"
       left-text="返回"
+      fixed
+      :z-index="zindex"
       left-arrow
       @click-left="onClickLeft"
       />
@@ -58,6 +60,9 @@
         </div>
       </van-list>
     </div>
+    <div class="footer">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -74,10 +79,12 @@ import {
 }
   from 'vant';
 import axios from 'axios';
+import Footer from '../components/Footer.vue';
 export default {
   data () {
     return {
       show: false,
+      zindex: 999,
       commentvalue: '',
       loading: false,
       reloading: false,
@@ -100,7 +107,8 @@ export default {
     [Field.name]: Field,
     [Toast.name]: Toast,
     [Button.name]: Button,
-    [Popup.name]: Popup
+    [Popup.name]: Popup,
+    Footer
   },
   methods: {
     onClickLeft () { // 返回上一层
@@ -202,6 +210,7 @@ export default {
   font-size: 16px;
 }
 .content {
+  margin-top: 55px;
   margin-bottom: 45px;
 }
 .replytitle {
@@ -212,6 +221,7 @@ export default {
   width: 80%;
   text-align: justify;
   margin-left: 15px;
+  padding-bottom: 5px;
 }
 .replyinfo {
   border:1px solid #ADADAD;
@@ -245,6 +255,7 @@ export default {
   text-align: left;
   margin-top: 10px;
   margin-left: 30px;
+  margin-right: 10px;
   font-size: 14px;
   color: #8E8E8E;
 }

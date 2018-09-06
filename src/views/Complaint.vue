@@ -5,6 +5,7 @@
       title="投诉"
       left-text="返回"
       left-arrow
+      fixed
       @click-left="onClickLeft"
       />
     </div>
@@ -30,13 +31,11 @@
         <icon :size="'40px'" :color="'#0080FF'" :name="search" @click="onClickSearch"/>
       </div>
       <div class="popup">
-        <van-popup v-model="popupshow" position="bottom" :overlay="true">
-          <van-cell-group>
-              <van-cell title="待处理" @click="onClickUntreated"/>
-              <van-cell title="处理中" @click="onClickTreatting"/>
-              <van-cell title="已处理" @click="onClickClosed"/>
-          </van-cell-group>
-        </van-popup>
+        <van-actionsheet
+          v-model="popupshow"
+          :actions="actions"
+          cancel-text="取消"
+         />
       </div>
     </div>
     <div class="footer">
@@ -55,8 +54,8 @@ import {
   Toast,
   Icon,
   List,
-  Button,
-  Popup
+  Actionsheet,
+  Button
 }
   from 'vant';
 import Footer from '../components/Footer.vue';
@@ -69,7 +68,21 @@ export default {
       finished: false,
       complaintlist: [],
       complaintitem: [],
-      search: 'icon-search'
+      search: 'icon-search',
+      actions: [
+        {
+          name: '待处理',
+          callback: this.onClickUntreated
+        },
+        {
+          name: '处理中',
+          callback: this.onClickTreatting
+        },
+        {
+          name: '已处理',
+          callback: this.onClickClosed
+        }
+      ]
     };
   },
   components: {
@@ -80,9 +93,9 @@ export default {
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     [Toast.name]: Toast,
+    [Actionsheet.name]: Actionsheet,
     [Button.name]: Button,
     [Icon.name]: Icon,
-    [Popup.name]: Popup,
     Footer
   },
   methods: {
@@ -172,11 +185,11 @@ export default {
         });
     },
     OnClickComplainDetail (complaintitem) { // 跳转到投诉详情页面
-      let titlename = complaintitem.titlename;
+      let Complainid = complaintitem.Complainid;
       this.$router.push({
         path: './ComplaintDetail',
         query: {
-          titlename: titlename
+          Complainid: Complainid
         }
       });
     }
@@ -207,6 +220,7 @@ export default {
   background-color: #38f;
 }
 .content {
+  margin-top: 55px;
   margin-bottom: 45px;
 }
 .search {
@@ -238,6 +252,7 @@ export default {
   text-align: left;
   margin-top: 10px;
   margin-left: 30px;
+  margin-right: 10px;
   font-size: 14px;
   color: #8E8E8E;
   overflow: hidden;
