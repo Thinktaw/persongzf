@@ -27,6 +27,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-tabs': 'off',
     'no-trailing-space': 'off',
-    'semi':['error','always']
+    'semi':['error','always'],
+    "vue/no-parsing-error": [2, { "x-invalid-end-tag": false }]
   }
 }

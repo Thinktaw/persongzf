@@ -136,5 +136,57 @@
 	    "contentdetail": "我那时真是聪明过分；也怕别人看见！到这边时；他先将橘子散放在地上；我与父亲不相见已二年余了；父亲和我都是东奔西走？须穿过铁道。”他望车外看了看，两脚再向上缩！",
 	    "contentimage": "",
 	    "contentstatus": 1
-	}
+	},
+	"propertyinfo": [
+		{
+			"propertyname": "邓家荣",
+			"propertyfamily": 4,
+			"propertyGuarantee": 1,
+			"propertyAddress": "平顶山",
+			"propertyphone": "13827283728",
+			"propertycheckin": "2018 / 05 /28",
+			"propertyincome": "2000"
+
+		},
+		{
+			"propertyname": "吴英杰",
+			"propertyfamily": 4,
+			"propertyGuarantee": 1,
+			"propertyAddress": "平顶山",
+			"propertyphone": "13827283728",
+			"propertycheckin": "2018 / 05 /28",
+			"propertyincome": "2000"
+
+		},
+		{
+			"propertyname": "孔毓婷",
+			"propertyfamily": 4,
+			"propertyGuarantee": 1,
+			"propertyAddress": "平顶山",
+			"propertyphone": "13827283728",
+			"propertycheckin": "2018 / 05 /28",
+			"propertyincome": "2000"
+
+		},
+		{
+			"propertyname": "潘姿莹",
+			"propertyfamily": 4,
+			"propertyGuarantee": 1,
+			"propertyAddress": "平顶山",
+			"propertyphone": "13827283728",
+			"propertycheckin": "2018 / 05 /28",
+			"propertyincome": "2000"
+
+		},
+		{
+			"propertyname": "叶淑芬",
+			"propertyfamily": 4,
+			"propertyGuarantee": 1,
+			"propertyAddress": "平顶山",
+			"propertyphone": "13827283728",
+			"propertycheckin": "2018 / 05 /28",
+			"propertyincome": "2000"
+
+		}
+	]
 }

@@ -14,6 +14,7 @@ import ComplaintAndAdvise from './views/ComplaintAndAdvise.vue';
 import ComplaintDetail from './views/ComplaintDetail';
 import Complaint from './views/Complaint';
 import Advise from './views/Advise';
+import PropertyList from './views/PropertyList';
 Vue.use(VueRouter);
 
 const routes = [
@@ -116,6 +117,13 @@ const routes = [
     component: ComplaintDetail,
     meta: {
       title: '投诉详情'
+    }
+  },
+  {
+    path: '/PropertyList',
+    component: PropertyList,
+    meta: {
+      title: '物业档案'
     }
   }
 ];
